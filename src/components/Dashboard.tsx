@@ -146,26 +146,27 @@ export default function Dashboard({ user, intention }: { user: any; intention: a
         <div className="min-h-screen bg-[#080810] pb-24">
 
             {/* ── Header ── */}
-            <header className="border-b border-white/5 bg-black/50 backdrop-blur-xl sticky top-0 z-50">
+            <header className="border-b border-white/5 bg-black/60 backdrop-blur-2xl sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-                    <div className="flex items-center gap-2.5">
-                        <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center">
-                            <span className="text-[10px] font-black text-white">C</span>
+                    <div className="flex items-center gap-3">
+                        <div className="relative w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-blue-600 flex items-center justify-center shadow-[0_0_16px_rgba(139,92,246,0.45)]">
+                            <span className="text-[11px] font-black text-white">C</span>
                         </div>
-                        <span className="font-bold text-sm tracking-tight">ClarityOS</span>
-                        <span className="text-[9px] font-bold text-emerald-400/80 bg-emerald-400/10 px-2 py-0.5 rounded-full uppercase tracking-widest">
+                        <span className="font-black text-sm tracking-tight">ClarityOS</span>
+                        <span className="flex items-center gap-1 text-[9px] font-bold text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2.5 py-0.5 rounded-full uppercase tracking-widest">
+                            <span className="w-1 h-1 bg-emerald-400 rounded-full animate-pulse" />
                             Live
                         </span>
                     </div>
-                    <div className="flex items-center gap-5">
+                    <div className="flex items-center gap-4">
                         {user?.name && (
-                            <span className="text-sm text-zinc-400 hidden sm:block">
+                            <span className="text-xs text-zinc-400 hidden sm:block max-w-[120px] truncate">
                                 {user.name}
                             </span>
                         )}
                         <button
                             onClick={() => signOut()}
-                            className="text-xs font-medium text-zinc-500 hover:text-white transition-colors"
+                            className="text-xs font-semibold text-zinc-500 hover:text-white bg-white/4 hover:bg-white/8 border border-white/6 hover:border-white/12 px-3 py-1.5 rounded-lg transition-all"
                         >Sign out</button>
                     </div>
                 </div>
@@ -180,6 +181,8 @@ export default function Dashboard({ user, intention }: { user: any; intention: a
                     </h1>
                     <p className="text-zinc-500 text-sm mt-0.5">
                         {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+                        <span className="mx-1.5 text-zinc-700">·</span>
+                        <span className="text-zinc-600">Let's make today count.</span>
                     </p>
                 </div>
 
@@ -291,18 +294,26 @@ export default function Dashboard({ user, intention }: { user: any; intention: a
                                     ))}
                                 </div>
                             ) : sessions.length === 0 ? (
-                                <div className="glass-card rounded-xl p-10 border border-white/5 text-center">
-                                    <div className="text-4xl mb-3">📡</div>
-                                    <p className="text-zinc-300 font-semibold mb-1">No activity tracked yet today</p>
-                                    <p className="text-zinc-500 text-sm max-w-xs mx-auto mb-4">
-                                        Start your desktop tracker to see live activity here.
+                                <div className="glass-card rounded-2xl p-10 border border-white/5 text-center">
+                                    <div className="text-5xl mb-4">📡</div>
+                                    <p className="text-white font-bold text-base mb-1">No activity tracked yet today</p>
+                                    <p className="text-zinc-500 text-sm max-w-sm mx-auto mb-6 leading-relaxed">
+                                        Your desktop tracker isn't running yet. Install it in under 2 minutes — no coding required.
                                     </p>
-                                    <a
-                                        href="/setup"
-                                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-violet-400 hover:text-violet-300 bg-violet-500/10 hover:bg-violet-500/15 border border-violet-500/20 px-4 py-2 rounded-full transition-all"
-                                    >
-                                        View setup guide →
-                                    </a>
+                                    <div className="flex items-center justify-center gap-3 flex-wrap">
+                                        <a
+                                            href="/setup"
+                                            className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-violet-600 hover:bg-violet-500 px-5 py-2.5 rounded-xl transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.45)]"
+                                        >
+                                            ⚡ View Setup Guide
+                                        </a>
+                                        <a
+                                            href="/api/download"
+                                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-300 bg-white/6 hover:bg-white/10 border border-white/10 px-5 py-2.5 rounded-xl transition-all"
+                                        >
+                                            ⬇ Download Tracker
+                                        </a>
+                                    </div>
                                 </div>
                             ) : (
                                 <div className="space-y-3">
@@ -425,26 +436,29 @@ export default function Dashboard({ user, intention }: { user: any; intention: a
                         )}
 
                         {/* Desktop Token */}
-                        <div className="glass-card p-5 rounded-2xl border border-white/6">
-                            <h3 className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-1">Desktop API Token</h3>
-                            <p className="text-xs text-zinc-600 mb-3">
-                                Paste into <code className="bg-black/40 px-1 rounded text-zinc-400">sync.py</code> or run:
-                            </p>
-                            <div className="bg-black/40 rounded-lg px-3 py-2 mb-3 text-[10px] font-mono text-zinc-400 leading-relaxed border border-white/5">
-                                python tracker.py --token {user?.apiToken ?? "…"}
+                        <div className="glass-card p-5 rounded-2xl border border-violet-500/15 bg-violet-500/3">
+                            <div className="flex items-center gap-2 mb-2">
+                                <span className="text-base">🔑</span>
+                                <h3 className="text-[10px] font-bold text-violet-400 uppercase tracking-widest">Desktop API Token</h3>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <div className="flex-1 bg-black/40 border border-white/8 rounded-lg px-3 py-2 text-xs font-mono text-zinc-400 truncate select-all">
+                            <p className="text-xs text-zinc-600 mb-3 leading-relaxed">
+                                Paste this once into the installer dialog. Stored locally — never shared.
+                            </p>
+                            <div className="flex items-center gap-2 mb-2">
+                                <div className="flex-1 bg-black/50 border border-white/8 rounded-xl px-3 py-2.5 text-xs font-mono text-zinc-300 truncate select-all">
                                     {user?.apiToken ?? "—"}
                                 </div>
                                 <button
                                     onClick={copyToken}
-                                    className={`shrink-0 text-xs font-semibold px-3 py-2 rounded-lg transition-all ${copied ? "bg-emerald-500/20 text-emerald-400" : "bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-white"
+                                    className={`shrink-0 text-xs font-bold px-4 py-2.5 rounded-xl transition-all ${copied
+                                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                                            : "bg-violet-600 hover:bg-violet-500 text-white shadow-[0_0_16px_rgba(139,92,246,0.25)]"
                                         }`}
                                 >
-                                    {copied ? "✓" : "Copy"}
+                                    {copied ? "✓ Copied!" : "Copy"}
                                 </button>
                             </div>
+                            <p className="text-[10px] text-zinc-700">Use during install.bat setup on your PC</p>
                         </div>
                     </div>
                 </div>
