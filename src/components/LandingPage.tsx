@@ -135,7 +135,7 @@ export default function LandingPage() {
                 </h1>
 
                 <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-10 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
-                    ClarityOS silently tracks what you work on, classifies it with local AI, and gives you a live productivity dashboard — so you stop guessing and start improving.
+                    ClarityOS silently tracks what you work on, classifies it with local AI, and gives you a live productivity dashboard. Stop guessing and start improving.
                 </p>
 
                 {/* CTAs */}
@@ -151,7 +151,7 @@ export default function LandingPage() {
                             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                         </svg>
                         Get Started Free
-                        <span className="text-zinc-400 text-xs font-normal">— takes 30 sec</span>
+                        <span className="text-zinc-400 text-xs font-normal">takes 30 sec</span>
                     </button>
                     <Link
                         href="/setup"
@@ -160,12 +160,12 @@ export default function LandingPage() {
                         How to Set Up →
                     </Link>
                 </div>
-                <p className="text-xs text-zinc-600 animate-in fade-in duration-700 delay-300">No credit card · Works on Windows · Free forever</p>
+                <p className="text-xs text-zinc-600 animate-in fade-in duration-700 delay-300">No credit card · Works on Windows · 100% Free</p>
 
                 {/* Stats strip */}
                 <div className="flex items-center justify-center gap-8 sm:gap-16 mt-16 flex-wrap animate-in fade-in slide-in-from-bottom-3 duration-700 delay-300">
                     {[
-                        { val: 100, suffix: "%", label: "Free forever" },
+                        { val: 100, suffix: "%", label: "Free" },
                         { val: 2, suffix: " min", label: "Setup time" },
                         { label: "Local AI", isText: true, text: "🔒" },
                         { label: "Real-time dashboard", isText: true, text: "⚡" },

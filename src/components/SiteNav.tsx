@@ -39,7 +39,7 @@ export default function SiteNav() {
 
     const links = [
         { href: "/setup", label: "How to Setup", icon: "⚡" },
-        { href: "/download", label: "Download", icon: "⬇" },
+        { href: "/api/download", label: "Download", icon: "⬇", highlight: true },
     ];
 
     // Close drawer on outside click
@@ -82,8 +82,12 @@ export default function SiteNav() {
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className="text-xs font-medium text-zinc-400 hover:text-white transition-colors px-3.5 py-2 rounded-lg hover:bg-white/6"
+                                className={link.highlight
+                                    ? "text-xs font-bold text-white bg-white/8 hover:bg-white/14 border border-white/12 hover:border-white/22 transition-all px-4 py-2 rounded-full flex items-center gap-1.5"
+                                    : "text-xs font-medium text-zinc-400 hover:text-white transition-colors px-3.5 py-2 rounded-lg hover:bg-white/6"
+                                }
                             >
+                                {link.highlight && <span>⬇</span>}
                                 {link.label}
                             </Link>
                         ))}
