@@ -67,12 +67,37 @@ body {
 
 @layer utilities {
 
-  /* Glass card — primary surface */
+  /* ── Glass surfaces ──────────────────────────────────────────────── */
+
+  /* Primary glass card — used everywhere */
   .glass-card {
     background: var(--card-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--card-border);
+  }
+
+  /* Glass card with hover glow + lift — for stat/metric cards */
+  .glass-card-elevated {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .glass-card-elevated:hover {
+    transform: translateY(-2px) scale(1.01);
+    border-color: rgba(255, 255, 255, 0.10);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(139, 92, 246, 0.06);
+  }
+
+  /* Violet-tinted glass — for AI cards, token cards, highlighted sections */
+  .glass-card-violet {
+    background: rgba(139, 92, 246, 0.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.18);
   }
 
   /* Brighter glass for highlighted cards */
@@ -82,6 +107,14 @@ body {
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.10);
   }
+
+  /* Glass inset — for inputs, code blocks inside cards */
+  .glass-inset {
+    background: rgba(0, 0, 0, 0.40);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* ── Text utilities ─────────────────────────────────────────────── */
 
   /* Violet glow text */
   .glow-violet {
@@ -95,6 +128,8 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  /* ── Background utilities ───────────────────────────────────────── */
 
   /* Ambient glow orb */
   .glow-orb {
@@ -115,6 +150,24 @@ body {
     padding: 1px;
     border-radius: inherit;
     background: linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(59, 130, 246, 0.2), rgba(52, 211, 153, 0.15));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Violet gradient border variant */
+  .gradient-border-violet {
+    position: relative;
+  }
+
+  .gradient-border-violet::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.5), rgba(59, 130, 246, 0.3));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;

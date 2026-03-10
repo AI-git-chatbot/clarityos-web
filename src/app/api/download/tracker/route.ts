@@ -15,7 +15,7 @@ export async function GET() {
             status: 200,
             headers: {
                 "Content-Type": "text/x-python",
-                "Content-Disposition": 'attachment; filename="tracker.py"',
+                "Content-Disposition": 'attachment; filename="ClarityOS-Tracker.py"',
             },
         });
     } catch {
