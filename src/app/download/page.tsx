@@ -92,13 +92,13 @@ export default function DownloadPage() {
                     <h2 className="text-sm font-bold text-white mb-1">Download ClarityOS Tracker</h2>
                     <p className="text-xs text-zinc-500 mb-4">Includes tracker + install.bat auto-installer · Windows only</p>
                     <a
-                        href="/api/download/tracker"
+                        href="/api/download"
                         className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-semibold text-sm px-6 py-3 rounded-xl transition-all hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] active:scale-95"
                     >
-                        ⬇ Download tracker.py
+                        ⬇ Download ClarityOS-Tracker.zip
                     </a>
                     <p className="text-xs text-zinc-600 mt-3">
-                        Or get the full installer zip from the{" "}
+                        Includes tracker, installer, and all required files ·{" "}
                         <Link href="/setup" className="text-violet-400 hover:underline">Setup Guide →</Link>
                     </p>
                 </div>
