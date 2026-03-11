@@ -1,36 +1,8 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
 import { useState, useEffect, useRef } from "react";
-
-// ── ClarityOS SVG Logo Mark ────────────────────────────────────────────────────
-function LogoMark({ size = 36 }: { size?: number }) {
-    return (
-        <svg width={size} height={size} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="logo-bg" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#7C3AED" />
-                    <stop offset="1" stopColor="#2563EB" />
-                </linearGradient>
-                <linearGradient id="logo-ring" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="rgba(255,255,255,0.35)" />
-                    <stop offset="1" stopColor="rgba(255,255,255,0.05)" />
-                </linearGradient>
-            </defs>
-            {/* Background rounded square */}
-            <rect width="36" height="36" rx="10" fill="url(#logo-bg)" />
-            {/* Inner highlight ring */}
-            <rect x="0.75" y="0.75" width="34.5" height="34.5" rx="9.25" stroke="url(#logo-ring)" strokeWidth="1.5" />
-            {/* C letterform as a track arc */}
-            <circle cx="18" cy="18" r="9" stroke="white" strokeWidth="2.5" strokeLinecap="round"
-                strokeDasharray="43" strokeDashoffset="13" transform="rotate(-40 18 18)" opacity="0.9" />
-            {/* Centre dot — the "pulse" */}
-            <circle cx="18" cy="18" r="2.5" fill="white" opacity="0.95" />
-            {/* Small tick / check at the gap of the C */}
-            <path d="M25.5 12.5 L27.5 15 L24 17" stroke="#A78BFA" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-    );
-}
 
 export default function SiteNav() {
     const { data: session } = useSession();
@@ -65,14 +37,21 @@ export default function SiteNav() {
             <nav className="border-b border-white/5 bg-black/50 backdrop-blur-2xl sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center gap-3 group shrink-0" onClick={() => setMobileOpen(false)}>
-                        <div className="group-hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_12px_rgba(139,92,246,0.5)] group-hover:drop-shadow-[0_0_20px_rgba(139,92,246,0.7)]">
-                            <LogoMark size={34} />
-                        </div>
-                        <div className="leading-none">
-                            <div className="font-black text-[15px] tracking-tight text-white">ClarityOS</div>
-                            <div className="text-[9px] text-zinc-500 tracking-[0.15em] uppercase font-semibold mt-0.5">AI Work Tracker</div>
+                    {/* Logo — full image, clipped to show icon + wordmark */}
+                    <Link href="/" className="flex items-center shrink-0 group" onClick={() => setMobileOpen(false)}>
+                        {/* 
+                          The logo image includes the icon + ClarityOS text + AI WORK TRACKER subtitle.
+                          We show it at a fixed height and let the image sit naturally.
+                          White bg is masked by a rounded container with overflow-hidden.
+                        */}
+                        <div className="relative h-10 w-[180px] rounded-xl overflow-hidden group-hover:opacity-90 transition-opacity duration-200">
+                            <Image
+                                src="/clarityos-logo.png"
+                                alt="ClarityOS — AI Work Tracker"
+                                fill
+                                className="object-contain object-left"
+                                priority
+                            />
                         </div>
                     </Link>
 
@@ -139,9 +118,13 @@ export default function SiteNav() {
             >
                 {/* Drawer header */}
                 <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
-                    <div className="flex items-center gap-2.5">
-                        <LogoMark size={28} />
-                        <span className="font-black text-sm text-white">ClarityOS</span>
+                    <div className="relative h-8 w-[140px] rounded-lg overflow-hidden">
+                        <Image
+                            src="/clarityos-logo.png"
+                            alt="ClarityOS"
+                            fill
+                            className="object-contain object-left"
+                        />
                     </div>
                     <button
                         onClick={() => setMobileOpen(false)}
@@ -185,7 +168,7 @@ export default function SiteNav() {
                             Sign in with Google →
                         </button>
                     )}
-                    <p className="text-center text-[10px] text-zinc-700 mt-3">Free forever · Local AI · Windows 10/11</p>
+                    <p className="text-center text-[10px] text-zinc-700 mt-3">Free · Local AI · Windows 10/11</p>
                 </div>
             </div>
         </>

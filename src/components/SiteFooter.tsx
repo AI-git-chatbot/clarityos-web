@@ -1,26 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 
-// ── ClarityOS SVG Logo Mark ────────────────────────────────────────────────────
-function LogoMark({ size = 28 }: { size?: number }) {
-    return (
-        <svg width={size} height={size} viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="footer-logo-bg" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#7C3AED" />
-                    <stop offset="1" stopColor="#2563EB" />
-                </linearGradient>
-            </defs>
-            <rect width="36" height="36" rx="10" fill="url(#footer-logo-bg)" />
-            <rect x="0.75" y="0.75" width="34.5" height="34.5" rx="9.25" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
-            <circle cx="18" cy="18" r="9" stroke="white" strokeWidth="2.5" strokeLinecap="round"
-                strokeDasharray="43" strokeDashoffset="13" transform="rotate(-40 18 18)" opacity="0.9" />
-            <circle cx="18" cy="18" r="2.5" fill="white" opacity="0.95" />
-            <path d="M25.5 12.5 L27.5 15 L24 17" stroke="#A78BFA" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-    );
-}
-
 export default function SiteFooter() {
     return (
         <footer className="border-t border-white/5 bg-black/30 mt-16 relative overflow-hidden">
@@ -32,9 +12,13 @@ export default function SiteFooter() {
 
                     {/* Brand */}
                     <div className="md:col-span-2">
-                        <div className="flex items-center gap-2.5 mb-4">
-                            <LogoMark size={30} />
-                            <span className="font-black text-white text-base">ClarityOS</span>
+                        <div className="relative h-10 w-[200px] rounded-xl overflow-hidden mb-4">
+                            <Image
+                                src="/clarityos-logo.png"
+                                alt="ClarityOS — AI Work Tracker"
+                                fill
+                                className="object-contain object-left"
+                            />
                         </div>
                         <p className="text-sm text-zinc-500 leading-relaxed max-w-xs mb-4">
                             AI-powered work tracking that runs silently on your desktop. Know exactly where your time goes — every single day.
