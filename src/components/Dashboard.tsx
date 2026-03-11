@@ -2,6 +2,7 @@
 
 import { signOut } from "next-auth/react";
 import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface ChecklistItem { id: string; text: string; done: boolean; }
@@ -191,18 +192,15 @@ export default function Dashboard({ user, intention }: { user: any; intention: a
             <header className="border-b border-white/5 bg-black/60 backdrop-blur-2xl sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <svg width="26" height="26" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="dash-logo-bg" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-                                    <stop stopColor="#7C3AED" /><stop offset="1" stopColor="#2563EB" />
-                                </linearGradient>
-                            </defs>
-                            <rect width="36" height="36" rx="10" fill="url(#dash-logo-bg)" />
-                            <circle cx="18" cy="18" r="9" stroke="white" strokeWidth="2.5" strokeLinecap="round"
-                                strokeDasharray="43" strokeDashoffset="13" transform="rotate(-40 18 18)" opacity="0.9" />
-                            <circle cx="18" cy="18" r="2.5" fill="white" opacity="0.95" />
-                        </svg>
-                        <span className="font-black text-sm tracking-tight text-white">ClarityOS</span>
+                        <div className="relative h-10 w-[180px]">
+                            <Image
+                                src="/clarityos-logo.png"
+                                alt="ClarityOS"
+                                fill
+                                className="object-contain object-left"
+                                priority
+                            />
+                        </div>
                         <span className="flex items-center gap-1 text-[9px] font-bold text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2.5 py-0.5 rounded-full uppercase tracking-widest">
                             <span className="w-1 h-1 bg-emerald-400 rounded-full animate-pulse" />
                             Live
@@ -518,6 +516,58 @@ export default function Dashboard({ user, intention }: { user: any; intention: a
                                 <p className="text-xs text-zinc-300 leading-relaxed italic">"{stats.latestAiSummary}"</p>
                             </div>
                         )}
+
+                        {/* ── Tracker Status ── */}
+                        {(() => {
+                            const now = new Date();
+                            const lastSession = sessions.length > 0
+                                ? sessions.reduce((latest, s) =>
+                                    new Date(s.sessionEnd) > new Date(latest.sessionEnd) ? s : latest
+                                )
+                                : null;
+                            const minsAgo = lastSession
+                                ? Math.round((now.getTime() - new Date(lastSession.sessionEnd).getTime()) / 60000)
+                                : null;
+
+                            const isLive = minsAgo !== null && minsAgo <= 120;
+                            const isIdle = minsAgo !== null && minsAgo > 120;
+                            const isOffline = minsAgo === null;
+
+                            let statusColor = isLive
+                                ? "border-emerald-500/25 bg-emerald-500/5"
+                                : isIdle ? "border-amber-500/25 bg-amber-500/5"
+                                    : "border-white/8 bg-white/3";
+                            let dotColor = isLive ? "bg-emerald-400 animate-pulse" : isIdle ? "bg-amber-400" : "bg-zinc-600";
+                            let textColor = isLive ? "text-emerald-400" : isIdle ? "text-amber-400" : "text-zinc-500";
+                            let label = isLive ? "Connected · Live"
+                                : isIdle ? "Connected · Idle"
+                                    : "Waiting for tracker";
+                            let sub = isLive
+                                ? `Last sync ${minsAgo}m ago`
+                                : isIdle ? `Last sync ${minsAgo! >= 60 ? `${Math.floor(minsAgo! / 60)}h ${minsAgo! % 60}m` : `${minsAgo}m`} ago`
+                                    : "No sessions synced yet today";
+
+                            return (
+                                <div className={`glass-card p-5 rounded-2xl border ${statusColor} transition-colors`}>
+                                    <div className="flex items-center justify-between mb-2">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-base">📡</span>
+                                            <h3 className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Tracker Status</h3>
+                                        </div>
+                                        <span className={`flex items-center gap-1.5 text-[10px] font-bold ${textColor} bg-black/20 border ${isLive ? 'border-emerald-500/20' : isIdle ? 'border-amber-500/20' : 'border-white/6'} px-2.5 py-1 rounded-full`}>
+                                            <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
+                                            {label}
+                                        </span>
+                                    </div>
+                                    <p className="text-[11px] text-zinc-600">{sub}</p>
+                                    {isOffline && (
+                                        <a href="/setup" className="inline-flex items-center gap-1 text-[11px] font-semibold text-violet-400 hover:text-violet-300 transition-colors mt-2">
+                                            ⚡ Set up tracker →
+                                        </a>
+                                    )}
+                                </div>
+                            );
+                        })()}
 
                         {/* Desktop Token */}
                         <div className="glass-card p-5 rounded-2xl border border-violet-500/15 bg-violet-500/3 hover:border-violet-500/25 transition-colors">
