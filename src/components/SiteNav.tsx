@@ -35,7 +35,7 @@ export default function SiteNav() {
     return (
         <>
             <nav className="border-b border-white/5 bg-black/50 backdrop-blur-2xl sticky top-0 z-50">
-                <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+                <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
 
                     {/* Logo — full image, clipped to show icon + wordmark */}
                     <Link href="/" className="flex items-center shrink-0 group" onClick={() => setMobileOpen(false)}>
@@ -44,7 +44,7 @@ export default function SiteNav() {
                           We show it at a fixed height and let the image sit naturally.
                           White bg is masked by a rounded container with overflow-hidden.
                         */}
-                        <div className="relative h-12 w-[230px] rounded-xl overflow-hidden group-hover:opacity-90 transition-opacity duration-200">
+                        <div className="relative h-16 w-[300px] overflow-hidden group-hover:opacity-90 transition-opacity duration-200">
                             <Image
                                 src="/clarityos-logo.png"
                                 alt="ClarityOS — AI Work Tracker"
@@ -118,7 +118,7 @@ export default function SiteNav() {
             >
                 {/* Drawer header */}
                 <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
-                    <div className="relative h-10 w-[170px] rounded-lg overflow-hidden">
+                    <div className="relative h-14 w-[220px] overflow-hidden">
                         <Image
                             src="/clarityos-logo.png"
                             alt="ClarityOS"
