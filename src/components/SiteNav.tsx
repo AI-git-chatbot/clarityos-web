@@ -44,7 +44,7 @@ export default function SiteNav() {
                           We show it at a fixed height and let the image sit naturally.
                           White bg is masked by a rounded container with overflow-hidden.
                         */}
-                        <div className="relative h-10 w-[180px] rounded-xl overflow-hidden group-hover:opacity-90 transition-opacity duration-200">
+                        <div className="relative h-12 w-[230px] rounded-xl overflow-hidden group-hover:opacity-90 transition-opacity duration-200">
                             <Image
                                 src="/clarityos-logo.png"
                                 alt="ClarityOS — AI Work Tracker"
@@ -118,7 +118,7 @@ export default function SiteNav() {
             >
                 {/* Drawer header */}
                 <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
-                    <div className="relative h-8 w-[140px] rounded-lg overflow-hidden">
+                    <div className="relative h-10 w-[170px] rounded-lg overflow-hidden">
                         <Image
                             src="/clarityos-logo.png"
                             alt="ClarityOS"
